@@ -1,30 +1,29 @@
 # Dummy Token UI
 
-A simple UI for a [Dummy Token](https://github.com/decentraland/dummy-token). This frontend allows the user to connect their wallet and see their address. It is built using `react` + `redux` + `redux-saga`.
+A simple UI for a [Dummy Token](https://github.com/decentraland/dummy-token). This frontend allows users to connect their wallet, check their token balance, and transfer tokens. It is built using `react` + `redux` + `redux-saga` with [Decentraland UI](https://ui.decentraland.org/) components.
 
-# Directory structure and standards
+## Features
 
-The repository splits the `redux` logic into `modules`, which contain all the actions/sagas/reducer/selectors for a specific domain. The `react` components can be found under the `components` directory, each component has its own directory which contains always a `.tsx` file with the component itself and a `.css` file with its styles. The components are always pure, and if they need to be connected to the redux store it is done by wrapping it with a `.container.ts` file that maps the necessary properties and callbacks to extract the data from the store and dispatch the required actions.
-
-# Task
-
-The current state of the frontend allows the user to connect their wallet and see their address. Your task is add the following features:
-
-- Allow the user to see their Dummy Token balance once their wallet is connected
-- Allow the user to transfer Dummy Tokens
-
-To achieve this you will need to modify the existing redux module and/or add new ones, also you will need to adapt the react components to allow the user to fullfil all the necessary requirements by modifying the existing components/containers and/or adding new ones as well.
-
-You will need to make use of `decentraland-ui` components to build the missing parts of the frontend. You can see examples of the available components here: [Decentraland UI](https://ui.decentraland.org/).
-
-The final state of the frontend should look something like this:
-
-![Screencast](https://user-images.githubusercontent.com/2781777/115337070-bf24b980-a176-11eb-89e5-d4690893271a.gif)
+- Connect wallet using MetaMask
+- Display connected wallet address
+- Check Dummy Token balance
+- Transfer Dummy tokens to other addresses
 
 ## Setup
 
-1. Run `cp .env.example .env` and fill the environment variables
-2. Run `npm install`
-3. Run `npm start`
+1. Create environment file: `cp .env.example .env`
+2. Update `VITE_TOKEN_ADDRESS` in `.env` with your deployed token contract address.
+3. Run `npm install`
+4. Run `npm start`
 
-You will also need to setup a local ethereum development environment and deploy the Dummy Token there, to do that [follow these instructions](https://github.com/decentraland/dummy-token#setup).
+On your Metamask extension, you should switch to Ethereum Sepolia Network before interacting with the Dummy Token. When you interact with the UI, it should automatically detect the network and connect to the correct contract.
+
+You can also setup a local ethereum development environment and deploy the Dummy Token there, to do that [follow these instructions](https://github.com/decentraland/dummy-token#setup).
+
+## Environment Variables
+
+- `VITE_TOKEN_ADDRESS`: The address of your deployed ERC-20 Dummy Token contract. Note: the .env.sample already includes the address to a Dummy Token deployed on Sepolia. You can use that address for testing or replace it with your own. Just ensure to connect to the correct network in Metamask.
+
+## Directory structure and standards
+
+The repository splits the `redux` logic into `modules`, which contain all the actions/sagas/reducer/selectors for a specific domain. The `react` components can be found under the `components` directory, each component has its own directory which contains always a `.tsx` file with the component itself and a `.css` file with its styles. The components are always pure, and if they need to be connected to the redux store it is done by wrapping it with a `.container.ts` file that maps the necessary properties and callbacks to extract the data from the store and dispatch the required actions.
