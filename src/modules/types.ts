@@ -1,3 +1,3 @@
-import { reducer } from './reducer'
+import { reducer } from "./reducer";
 
-export type RootState = ReturnType<typeof reducer>
+export type RootState = ReturnType<typeof reducer>;
