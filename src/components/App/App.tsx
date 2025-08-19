@@ -1,35 +1,25 @@
-import React from 'react'
-import { Button, Card, Center, Footer, Header, Navbar, Page } from 'decentraland-ui'
-import { Props } from './App.types'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Footer, Navbar, Page } from "decentraland-ui";
+import Home from "../Home";
+import Transfer from "../Transfer";
+import "./App.css";
 
-const App: React.FC<Props> = ({ address, isConnected, onConnect, isConnecting, error }) => {
+const App: React.FC = () => {
   return (
-    <>
-      <Navbar activePage="Wallet" />
-      <Page className="App">
-        <Center>
-          {!isConnected ? (
-            <>
-              <Button primary onClick={onConnect} loading={isConnecting}>
-                Connect
-              </Button>
-              {error ? <p className="error">{error}</p> : null}
-            </>
-          ) : (
-            <Card>
-              <Header>Wallet</Header>
-              <p>
-                <strong>Address:</strong>&nbsp;
-                {address.slice(0, 6) + '...' + address.slice(-4)}
-              </p>
-            </Card>
-          )}
-        </Center>
-      </Page>
-      <Footer />
-    </>
-  )
-}
+    <Router>
+      <div className="App">
+        <Navbar activePage="Wallet" />
+        <Page className="Page">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/transfer" element={<Transfer />} />
+          </Routes>
+        </Page>
+        <Footer />
+      </div>
+    </Router>
+  );
+};
 
-export default App
+export default App;

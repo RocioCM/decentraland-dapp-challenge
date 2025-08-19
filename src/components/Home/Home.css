@@ -1,0 +1,11 @@
+.Home {
+  display: flex;
+  flex-direction: column;
+}
+
+.Home .error {
+  color: #ff6b6b;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 14px;
+}
