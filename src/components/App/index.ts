@@ -1,2 +1,3 @@
-import App from './App.container'
-export { App }
+import App from "./App.container";
+
+export { App };

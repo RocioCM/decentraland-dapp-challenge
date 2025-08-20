@@ -1,8 +1,42 @@
-.App .ui.card {
-  padding: 16px;
+.app {
+  --background: #18141a;
+  --text: white;
+  --luisxvi-violet: #a524b3;
+  --primary: #ff2d55;
+  --error: #ff6b6b;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: auto;
+  background-color: var(--background);
 }
 
-.App .error {
-  margin-top: 20px;
-  color: var(--primary);
+.app::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 5% 50%, #a524b349 0%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 0;
+  animation: expandShadow 5s ease-in-out infinite;
+}
+
+.app-page {
+  flex: 1;
+}
+
+@keyframes expandShadow {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
