@@ -10,9 +10,9 @@ import "react-loading-skeleton/dist/skeleton.css";
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="App">
+      <div className="app">
         <Navbar activePage="Home" />
-        <Page className="Page">
+        <Page className="app-page">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/transfer" element={<Transfer />} />

@@ -1,4 +1,4 @@
-.App {
+.app {
   --background: #18141a;
   --text: white;
   --luisxvi-violet: #a524b3;
@@ -13,23 +13,23 @@
   background-color: var(--background);
 }
 
-.App::before {
+.app::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-image: radial-gradient(circle at 5% 50%, #a524b349 0%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.1) 100%);
   z-index: 0;
-  animation: expand 7s ease-in-out infinite;
+  animation: expandShadow 5s ease-in-out infinite;
 }
 
-.Page {
+.app-page {
   flex: 1;
 }
 
-@keyframes expand {
+@keyframes expandShadow {
   0% {
     transform: scale(1);
   }

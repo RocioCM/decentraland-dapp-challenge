@@ -11,6 +11,9 @@ export type Props = {
   onTransfer: (to: string, amount: string) => void;
 };
 
-export type MapStateProps = Pick<Props, "isConnected" | "balance" | "isLoadingBalance" | "isTransferring" | "transferError" | "transferSuccess">;
+export type MapStateProps = Pick<
+  Props,
+  "isConnected" | "balance" | "isLoadingBalance" | "isTransferring" | "transferError" | "transferSuccess"
+>;
 export type MapDispatchProps = Pick<Props, "onTransfer">;
 export type MapDispatch = Dispatch<TransferTokenRequestAction | UnknownAction>;

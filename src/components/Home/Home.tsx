@@ -28,31 +28,31 @@ const Home: React.FC<Props> = ({
   if (!isConnected)
     return (
       <Center>
-        <div className="Home" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-          <div style={{ maxWidth: "500px" }}>
-            <h2 className="Title">Welcome to Dummy Token Manager</h2>
-            <p className="Subtitle">
+        <div className="home">
+          <div className="home-content">
+            <h2 className="home-title">Welcome to Dummy Token Manager</h2>
+            <p className="home-subtitle">
               Connect your wallet to start managing your <br />
               Dummy Tokens
             </p>
-            <div className="ButtonContainer">
+            <div className="home-button-container">
               <Button primary onClick={onConnect} loading={isConnecting} size="massive">
                 Connect Wallet
               </Button>
             </div>
-            {error ? <p className="Error">An error occurred while connecting your wallet. Please try again.</p> : null}
+            {error ? <p className="home-error">An error occurred while connecting your wallet. Please try again.</p> : null}
           </div>
-          <img className="Image" src="/decentraland.png" alt="Dummy Token" />
+          <img className="home-image" src="/decentraland.png" alt="Dummy Token" />
         </div>
       </Center>
     );
 
   return (
     <Center>
-      <div className="WalletContainer animate__animated animate__fadeInLeft">
-        <p className="WalletAddress">
+      <div className="home-wallet-container animate__animated animate__fadeInLeft">
+        <p className="home-wallet-address">
           <strong>Connected Wallet: </strong>
-          <span style={{ fontSize: "1.2rem", marginBottom: "1.5rem", display: "flex", gap: "0.5rem" }}>
+          <span className="home-wallet-address-text">
             <span>{address.slice(0, 6) + "..." + address.slice(-4)}</span>
             <Icon
               name={copied ? "check" : "copy outline"}
@@ -67,12 +67,12 @@ const Home: React.FC<Props> = ({
         </p>
 
         <Header>Token Balance</Header>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
+        <div className="home-balance-container">
           <div>
             {isLoadingBalance ? (
               <Skeleton baseColor="#151515" highlightColor="#303030" width="150px" height="2.5rem" />
             ) : (
-              <p style={{ fontSize: "2.5rem", lineHeight: "1", margin: 0 }}>
+              <p className="home-balance-amount">
                 <strong>{balance} DT</strong>
               </p>
             )}
@@ -83,7 +83,7 @@ const Home: React.FC<Props> = ({
         </div>
 
         <Header>Actions</Header>
-        <div className="ActionsContainer">
+        <div className="home-actions-container">
           <Button fluid inverted onClick={onMint} loading={isMinting}>
             <Icon name="plus" /> Mint Dummy Tokens
           </Button>
@@ -92,7 +92,7 @@ const Home: React.FC<Props> = ({
           </Button>
         </div>
 
-        {mintError && <p className="Error">An error occurred while minting your tokens. Please try again.</p>}
+        {mintError && <p className="home-error">An error occurred while minting your tokens. Please try again.</p>}
       </div>
     </Center>
   );

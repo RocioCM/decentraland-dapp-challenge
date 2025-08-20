@@ -70,25 +70,9 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
   if (!isConnected) {
     return (
       <Center>
-        <div
-          style={{
-            maxWidth: "500px",
-            width: "100%",
-            padding: "20px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "20px",
-            textAlign: "center",
-          }}
-        >
+        <div className="transfer-not-connected">
           <h2>Wallet Not Connected</h2>
-          <p
-            className="Subtitle"
-            style={{
-              maxWidth: "80%",
-            }}
-          >
+          <p className="transfer-not-connected-subtitle">
             Please connect your wallet first to transfer Dummy Tokens
           </p>
           <Button primary onClick={handleGoBack}>
@@ -101,18 +85,15 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
 
   return (
     <Center className="animate__animated animate__fadeInUp">
-      <div
-        className="TransferContainer"
-        style={{ display: "flex", flexDirection: "column", gap: "20px", width: "500px", maxWidth: "90vw", overflow: "auto" }}
-      >
+      <div className="transfer-container">
         {/* Back Button */}
-        <Button basic onClick={handleGoBack} style={{ alignSelf: "flex-start" }}>
+        <Button basic onClick={handleGoBack} className="transfer-back-button">
           <Icon name="arrow left" /> Back to Home
         </Button>
 
         {/* Transfer Form Card */}
-        <h2 style={{ margin: "0rem auto 2rem" }}>Transfer Tokens</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" }}>
+        <h2 className="transfer-title">Transfer Tokens</h2>
+        <div className="transfer-form">
           <Field
             fluid
             label="Recipient Address"
@@ -141,7 +122,7 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
                   : ""
             }
           />
-          <p style={{ fontSize: "14px", color: "#aaaaaa", margin: "10px 0" }}>Available balance: {balance} DT</p>
+          <p className="transfer-balance-info">Available balance: {balance} DT</p>
 
           <Button
             primary
@@ -155,7 +136,7 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
           </Button>
 
           {transferError && (
-            <p className="error" style={{ color: "var(--primary)", textAlign: "center", margin: "10px 0 0 0" }}>
+            <p className="transfer-error">
               An error occurred and the transfer was unsuccessful. Try again later.
             </p>
           )}
@@ -170,13 +151,7 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
           header="Transfer Successful!"
           content="Your tokens have been transferred successfully."
           onClose={() => setShowSuccessToast(false)}
-          style={{
-            position: "fixed",
-            top: "20px",
-            right: "20px",
-            zIndex: 1000,
-            maxWidth: "400px",
-          }}
+          className="transfer-success-toast"
         />
       )}
     </Center>
