@@ -14,6 +14,8 @@ import { RootState } from "../../modules/types";
 import { MapDispatch, MapDispatchProps, MapStateProps } from "./Home.types";
 import Home from "./Home";
 
+const DEFAULT_MINT_AMOUNT = "1000";
+
 const mapState = (state: RootState): MapStateProps => ({
   address: getAddress(state),
   isConnected: isConnected(state),
@@ -28,7 +30,7 @@ const mapState = (state: RootState): MapStateProps => ({
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
   onConnect: () => dispatch(connectWalletRequest()),
   onRefreshBalance: () => dispatch(getBalanceRequest()),
-  onMint: () => dispatch(mintTokenRequest("1000")), // Mint 1000 DT tokens
+  onMint: () => dispatch(mintTokenRequest(DEFAULT_MINT_AMOUNT)), // Mint some DT tokens
 });
 
 export default connect(mapState, mapDispatch)(Home);

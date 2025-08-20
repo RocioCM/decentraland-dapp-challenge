@@ -18,8 +18,9 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
   const navigate = useNavigate();
 
   // Validation states
+  const parsedAmount = parseFloat(transferAmount);
   const isAddressValid = !transferTo || isValidEthereumAddress(transferTo);
-  const isAmountValid = !transferAmount || (parseFloat(transferAmount) > 0 && parseFloat(transferAmount) <= parseFloat(balance));
+  const isAmountValid = !transferAmount || (parsedAmount > 0 && parsedAmount <= parseFloat(balance));
   const isFormValid = transferTo && transferAmount && isAddressValid && isAmountValid;
 
   const handleTransfer = () => {
@@ -72,9 +73,7 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
       <Center>
         <div className="transfer-not-connected">
           <h2>Wallet Not Connected</h2>
-          <p className="transfer-not-connected-subtitle">
-            Please connect your wallet first to transfer Dummy Tokens
-          </p>
+          <p className="transfer-not-connected-subtitle">Please connect your wallet first to transfer Dummy Tokens</p>
           <Button primary onClick={handleGoBack}>
             Go to Home
           </Button>
@@ -115,9 +114,9 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
             disabled={isTransferring}
             error={transferAmount ? !isAmountValid : false}
             message={
-              transferAmount && parseFloat(transferAmount) <= 0
+              transferAmount && parsedAmount <= 0
                 ? "Amount must be greater than 0"
-                : transferAmount && parseFloat(transferAmount) > parseFloat(balance)
+                : transferAmount && parsedAmount > parseFloat(balance)
                   ? "Insufficient balance"
                   : ""
             }
@@ -135,11 +134,7 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
             Transfer Tokens
           </Button>
 
-          {transferError && (
-            <p className="transfer-error">
-              An error occurred and the transfer was unsuccessful. Try again later.
-            </p>
-          )}
+          {transferError && <p className="transfer-error">An error occurred and the transfer was unsuccessful. Try again later.</p>}
         </div>
       </div>
 

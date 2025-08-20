@@ -77,8 +77,7 @@ function* handleGetBalanceRequest() {
 
     const provider = new ethers.BrowserProvider(windowWithEthereum.ethereum);
     const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, provider);
-    const getBalance = token.balanceOf;
-    const balance = (yield call(getBalance, address)) as bigint;
+    const balance = (yield call(token.balanceOf, address)) as bigint;
 
     // Convert from wei to ether (assuming 18 decimals)
     const formattedBalance = ethers.formatEther(balance);
