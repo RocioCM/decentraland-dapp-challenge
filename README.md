@@ -2,6 +2,8 @@
 
 A simple UI for a [Dummy Token](https://github.com/decentraland/dummy-token). This frontend allows users to connect their wallet, check their token balance, and transfer tokens. It is built using `react` + `redux` + `redux-saga` with [Decentraland UI](https://ui.decentraland.org/) components.
 
+#### You can access the Dummy Token UI deployed version at [decentraland-dapp-challenge.vercel.app](https://decentraland-dapp-challenge.vercel.app) 🚀
+
 ## Features
 
 - Connect wallet using MetaMask
@@ -9,6 +11,8 @@ A simple UI for a [Dummy Token](https://github.com/decentraland/dummy-token). Th
 - Check Dummy Token balance
 - Transfer Dummy tokens to other addresses
 - Responsive design: use it on any device!
+
+https://github.com/user-attachments/assets/2472119a-8feb-4b3a-8166-ce4298dcff8d
 
 ## Links
 
