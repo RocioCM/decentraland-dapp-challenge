@@ -8,15 +8,26 @@ A simple UI for a [Dummy Token](https://github.com/decentraland/dummy-token). Th
 - Display connected wallet address
 - Check Dummy Token balance
 - Transfer Dummy tokens to other addresses
+- Responsive design: use it on any device!
 
-## Setup
+## Links
+
+#### You can access the Dummy Token UI deployed version at [decentraland-dapp-challenge.vercel.app](https://decentraland-dapp-challenge.vercel.app) 🚀
+
+- Dummy Token Contract on Sepolia: [0x73550bE1f8eBaFaFb3A5F4587579D2D9c993d228](https://sepolia.etherscan.io/address/0x73550bE1f8eBaFaFb3A5F4587579D2D9c993d228#code)
+- Dummy Token Repo: [Github](https://github.com/decentraland/dummy-token)
+- Sepolia Faucet: [Claim Sepolia ETH](https://cloud.google.com/application/web3/faucet/ethereum/sepolia) (You'll need some Sepolia ETH in your wallet to interact with the Dummy Token deployed UI).
+
+## Local Setup
 
 1. Create environment file: `cp .env.example .env`
 2. Update `VITE_TOKEN_ADDRESS` in `.env` with your deployed token contract address.
 3. Run `npm install`
 4. Run `npm start`
 
-On your Metamask extension, you should switch to Ethereum Sepolia Network before interacting with the Dummy Token. When you interact with the UI, it should automatically detect the network and connect to the correct contract.
+On your Metamask extension, you should switch to Ethereum Sepolia Network before interacting with the Dummy Token. When you interact with the UI, it should automatically detect the network and connect to the correct contract. Ensure you have some Sepolia ETH in your wallet to interact with the Dummy Token, you need it to pay for gas fees.
+
+Tip: [Claim Sepolia ETH here](https://cloud.google.com/application/web3/faucet/ethereum/sepolia)
 
 You can also setup a local ethereum development environment and deploy the Dummy Token there, to do that [follow these instructions](https://github.com/decentraland/dummy-token#setup).
 
