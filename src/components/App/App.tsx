@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="App">
-        <Navbar activePage="Wallet" />
+        <Navbar activePage="Home" />
         <Page className="Page">
           <Routes>
             <Route path="/" element={<Home />} />

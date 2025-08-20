@@ -13,6 +13,10 @@ import {
   TRANSFER_TOKEN_REQUEST,
   TransferTokenRequestAction,
   getBalanceRequest,
+  mintTokenSuccess,
+  mintTokenFailure,
+  MINT_TOKEN_REQUEST,
+  MintTokenRequestAction,
 } from "./actions";
 import { WindowWithEthereum } from "./types";
 import { getAddress } from "./selectors";
@@ -37,12 +41,14 @@ export const TOKEN_ABI = [
   "function symbol() view returns (string)",
   "function balanceOf(address) view returns (uint)",
   "function transfer(address to, uint amount)",
+  "function mint(uint256 amount)",
 ];
 
 export function* walletSaga() {
   yield takeEvery(CONNECT_WALLET_REQUEST, handleConnectWalletRequest);
   yield takeEvery(GET_BALANCE_REQUEST, handleGetBalanceRequest);
   yield takeEvery(TRANSFER_TOKEN_REQUEST, handleTransferTokenRequest);
+  yield takeEvery(MINT_TOKEN_REQUEST, handleMintTokenRequest);
 }
 
 function* handleConnectWalletRequest() {
@@ -102,5 +108,28 @@ function* handleTransferTokenRequest(action: TransferTokenRequestAction) {
     yield put(getBalanceRequest());
   } catch (error) {
     yield put(transferTokenFailure(isErrorWithMessage(error) ? error.message : "Transfer failed"));
+  }
+}
+
+function* handleMintTokenRequest(action: MintTokenRequestAction) {
+  try {
+    const { amount } = action.payload;
+
+    const provider = new ethers.BrowserProvider(windowWithEthereum.ethereum);
+    const signer = (yield call([provider, "getSigner"])) as Awaited<ReturnType<typeof provider.getSigner>>;
+    const token = new ethers.Contract(TOKEN_ADDRESS, TOKEN_ABI, signer);
+
+    // Convert amount from ether to wei (assuming 18 decimals)
+    const amountWei = ethers.parseEther(amount);
+
+    const tx = (yield call(token.mint, amountWei)) as ethers.TransactionResponse;
+    yield call([tx, "wait"]); // Wait for transaction confirmation
+
+    yield put(mintTokenSuccess());
+
+    // Refresh balance after successful mint
+    yield put(getBalanceRequest());
+  } catch (error) {
+    yield put(mintTokenFailure(isErrorWithMessage(error) ? error.message : "Mint failed"));
   }
 }

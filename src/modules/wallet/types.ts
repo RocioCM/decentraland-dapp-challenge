@@ -8,6 +8,8 @@ export type WalletState = {
   isLoadingBalance: boolean;
   isTransferring: boolean;
   transferError: string | null;
+  isMinting: boolean;
+  mintError: string | null;
 };
 
 export type WindowWithEthereum = Window & {

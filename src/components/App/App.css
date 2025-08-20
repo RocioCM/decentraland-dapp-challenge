@@ -1,11 +1,39 @@
 .App {
+  --background: #18141a;
+  --text: white;
+  --luisxvi-violet: #a524b3;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   overflow: auto;
+  background-color: var(--background);
+}
+
+.App::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 5% 50%, #a524b349 0%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 0;
+  animation: expand 7s ease-in-out infinite;
 }
 
 .Page {
   flex: 1;
+}
+
+@keyframes expand {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

@@ -1,11 +1,54 @@
 .Home {
-  display: flex;
-  flex-direction: column;
+  max-width: 500px;
+  color: white;
+  margin-left: 6rem;
+  align-items: flex-start;
+  gap: 0.7rem;
 }
 
-.Home .error {
+.Title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.Subtitle {
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.ButtonContainer {
+  width: 100%;
+}
+
+.Home .Error {
   color: #ff6b6b;
   margin: 10px 0;
-  text-align: center;
+  text-align: left;
   font-size: 14px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .Home {
+    margin: 0;
+    padding: 1rem 2rem;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .Title {
+    font-size: 2.5rem;
+  }
+
+  .Subtitle {
+    font-size: 1.2rem;
+  }
+
+  .ButtonContainer {
+    width: 100%;
+  }
+
+  .Home .error {
+    font-size: 12px;
+  }
 }
