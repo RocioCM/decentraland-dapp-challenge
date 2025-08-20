@@ -4,6 +4,8 @@ import { Footer, Navbar, Page } from "decentraland-ui";
 import Home from "../Home";
 import Transfer from "../Transfer";
 import "./App.css";
+import "animate.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const App: React.FC = () => {
   return (

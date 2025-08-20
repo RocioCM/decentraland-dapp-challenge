@@ -2,6 +2,8 @@
   --background: #18141a;
   --text: white;
   --luisxvi-violet: #a524b3;
+  --primary: #ff2d55;
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;

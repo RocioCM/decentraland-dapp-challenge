@@ -1,21 +1,67 @@
-import React, { useState } from "react";
-import { Button, Card, Center, Header, Field, Loader } from "decentraland-ui";
+import React, { useEffect, useState } from "react";
+import { Button, Center, Field, Icon, Message } from "decentraland-ui";
 import { useNavigate } from "react-router-dom";
 import { Props } from "./Transfer.types";
 import "./Transfer.css";
 
-const Transfer: React.FC<Props> = ({ isConnected, balance, isLoadingBalance, isTransferring, transferError, onTransfer }) => {
+// Utility function to validate Ethereum address format
+const isValidEthereumAddress = (address: string): boolean => {
+  // Check if address is a valid Ethereum address format
+  const ethAddressRegex = /^0x[a-fA-F0-9]{40}$/;
+  return ethAddressRegex.test(address);
+};
+
+const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, transferError, transferSuccess, onTransfer }) => {
   const [transferTo, setTransferTo] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
   const navigate = useNavigate();
 
+  // Validation states
+  const isAddressValid = !transferTo || isValidEthereumAddress(transferTo);
+  const isAmountValid = !transferAmount || (parseFloat(transferAmount) > 0 && parseFloat(transferAmount) <= parseFloat(balance));
+  const isFormValid = transferTo && transferAmount && isAddressValid && isAmountValid;
+
   const handleTransfer = () => {
-    if (transferTo && transferAmount) {
+    if (isFormValid) {
       onTransfer(transferTo, transferAmount);
+    }
+  };
+
+  useEffect(() => {
+    if (!isTransferring && !transferError) {
+      // Reset form fields
       setTransferTo("");
       setTransferAmount("");
     }
-  };
+  }, [isTransferring, transferError]);
+
+  // Handle successful transfer
+  useEffect(() => {
+    if (transferSuccess) {
+      // Show success message
+      setShowSuccessToast(true);
+
+      // Clear form
+      setTransferTo("");
+      setTransferAmount("");
+
+      // Hide success message after 1.5 seconds
+      const hideMessageTimer = setTimeout(() => {
+        setShowSuccessToast(false);
+      }, 3000);
+
+      // Redirect to home after 2 seconds
+      const redirectTimer = setTimeout(() => {
+        navigate("/");
+      }, 3200);
+
+      return () => {
+        clearTimeout(hideMessageTimer);
+        clearTimeout(redirectTimer);
+      };
+    }
+  }, [transferSuccess, navigate]);
 
   const handleGoBack = () => {
     navigate("/");
@@ -24,76 +70,115 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isLoadingBalance, isT
   if (!isConnected) {
     return (
       <Center>
-        <Card>
-          <Header>Wallet Not Connected</Header>
-          <p>Please connect your wallet first to transfer tokens.</p>
+        <div
+          style={{
+            maxWidth: "500px",
+            width: "100%",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "20px",
+            textAlign: "center",
+          }}
+        >
+          <h2>Wallet Not Connected</h2>
+          <p
+            className="Subtitle"
+            style={{
+              maxWidth: "80%",
+            }}
+          >
+            Please connect your wallet first to transfer Dummy Tokens
+          </p>
           <Button primary onClick={handleGoBack}>
             Go to Home
           </Button>
-        </Card>
+        </div>
       </Center>
     );
   }
 
   return (
-    <Center>
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px", minWidth: "400px" }}>
+    <Center className="animate__animated animate__fadeInUp">
+      <div
+        className="TransferContainer"
+        style={{ display: "flex", flexDirection: "column", gap: "20px", width: "500px", maxWidth: "90vw", overflow: "auto" }}
+      >
         {/* Back Button */}
         <Button basic onClick={handleGoBack} style={{ alignSelf: "flex-start" }}>
-          ← Back to Home
+          <Icon name="arrow left" /> Back to Home
         </Button>
 
-        {/* Balance Info Card */}
-        <Card>
-          <Header>Available Balance</Header>
-          {isLoadingBalance ? (
-            <Loader active size="small" />
-          ) : (
-            <p style={{ fontSize: "24px", margin: 0, textAlign: "center" }}>
-              <strong>{balance} DT</strong>
+        {/* Transfer Form Card */}
+        <h2 style={{ margin: "0rem auto 2rem" }}>Transfer Tokens</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" }}>
+          <Field
+            fluid
+            label="Recipient Address"
+            placeholder="0x1a2b3c..."
+            disabled={isTransferring}
+            value={transferTo}
+            onChange={(_, { value }) => setTransferTo(value)}
+            error={transferTo ? !isAddressValid : false}
+            message={transferTo && !isAddressValid ? "Please enter a valid Ethereum address" : ""}
+          />
+          <Field
+            fluid
+            label="Amount"
+            placeholder="0.0"
+            value={transferAmount}
+            onChange={(_, { value }) => setTransferAmount(value)}
+            type="number"
+            step="0.01"
+            disabled={isTransferring}
+            error={transferAmount ? !isAmountValid : false}
+            message={
+              transferAmount && parseFloat(transferAmount) <= 0
+                ? "Amount must be greater than 0"
+                : transferAmount && parseFloat(transferAmount) > parseFloat(balance)
+                  ? "Insufficient balance"
+                  : ""
+            }
+          />
+          <p style={{ fontSize: "14px", color: "#aaaaaa", margin: "10px 0" }}>Available balance: {balance} DT</p>
+
+          <Button
+            primary
+            fluid
+            onClick={handleTransfer}
+            loading={isTransferring}
+            disabled={!isFormValid || isTransferring || parseFloat(balance) === 0}
+          >
+            <Icon name="paper plane" />
+            Transfer Tokens
+          </Button>
+
+          {transferError && (
+            <p className="error" style={{ color: "var(--primary)", textAlign: "center", margin: "10px 0 0 0" }}>
+              An error occurred. The transfer was unsuccessful.
             </p>
           )}
-        </Card>
-
-        {/* Transfer Form Card */}
-        <Card>
-          <Header>Transfer Tokens</Header>
-          <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-            <Field label="Recipient Address" placeholder="0x..." value={transferTo} onChange={(_, { value }) => setTransferTo(value)} />
-            <Field
-              label="Amount"
-              placeholder="0.0"
-              value={transferAmount}
-              onChange={(_, { value }) => setTransferAmount(value)}
-              type="number"
-              step="0.01"
-            />
-            <p style={{ fontSize: "12px", color: "#666", margin: "5px 0" }}>Available balance: {balance} DT</p>
-
-            <Button
-              primary
-              fluid
-              onClick={handleTransfer}
-              loading={isTransferring}
-              disabled={
-                !transferTo ||
-                !transferAmount ||
-                parseFloat(transferAmount) <= 0 ||
-                parseFloat(transferAmount) > parseFloat(balance) ||
-                parseFloat(balance) === 0
-              }
-            >
-              Transfer Tokens
-            </Button>
-
-            {transferError && (
-              <p className="error" style={{ textAlign: "center", margin: "10px 0 0 0" }}>
-                {transferError}
-              </p>
-            )}
-          </div>
-        </Card>
+        </div>
       </div>
+
+      {/* Success Message */}
+      {showSuccessToast && (
+        <Message
+          success
+          icon="check circle"
+          header="Transfer Successful!"
+          content="Your tokens have been transferred successfully."
+          onClose={() => setShowSuccessToast(false)}
+          style={{
+            position: "fixed",
+            top: "20px",
+            right: "20px",
+            zIndex: 1000,
+            maxWidth: "400px",
+          }}
+        />
+      )}
     </Center>
   );
 };

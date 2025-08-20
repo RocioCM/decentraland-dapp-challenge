@@ -8,6 +8,7 @@ export type WalletState = {
   isLoadingBalance: boolean;
   isTransferring: boolean;
   transferError: string | null;
+  transferSuccess: boolean;
   isMinting: boolean;
   mintError: string | null;
 };

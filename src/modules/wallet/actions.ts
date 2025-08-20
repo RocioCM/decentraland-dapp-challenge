@@ -10,6 +10,7 @@ export const GET_BALANCE_FAILURE = "[Failure] Get Balance";
 export const TRANSFER_TOKEN_REQUEST = "[Request] Transfer Token";
 export const TRANSFER_TOKEN_SUCCESS = "[Success] Transfer Token";
 export const TRANSFER_TOKEN_FAILURE = "[Failure] Transfer Token";
+export const TRANSFER_TOKEN_RESET = "[Reset] Transfer Token";
 
 export const MINT_TOKEN_REQUEST = "[Request] Mint Token";
 export const MINT_TOKEN_SUCCESS = "[Success] Mint Token";
@@ -76,6 +77,12 @@ export function transferTokenFailure(error: string) {
   };
 }
 
+export function transferTokenReset() {
+  return {
+    type: TRANSFER_TOKEN_RESET,
+  };
+}
+
 export function mintTokenRequest(amount: string) {
   return {
     type: MINT_TOKEN_REQUEST,
@@ -105,6 +112,7 @@ export type GetBalanceFailureAction = ReturnType<typeof getBalanceFailure>;
 export type TransferTokenRequestAction = ReturnType<typeof transferTokenRequest>;
 export type TransferTokenSuccessAction = ReturnType<typeof transferTokenSuccess>;
 export type TransferTokenFailureAction = ReturnType<typeof transferTokenFailure>;
+export type TransferTokenResetAction = ReturnType<typeof transferTokenReset>;
 export type MintTokenRequestAction = ReturnType<typeof mintTokenRequest>;
 export type MintTokenSuccessAction = ReturnType<typeof mintTokenSuccess>;
 export type MintTokenFailureAction = ReturnType<typeof mintTokenFailure>;
@@ -119,6 +127,7 @@ export type WalletAction =
   | TransferTokenRequestAction
   | TransferTokenSuccessAction
   | TransferTokenFailureAction
+  | TransferTokenResetAction
   | MintTokenRequestAction
   | MintTokenSuccessAction
   | MintTokenFailureAction;

@@ -7,9 +7,10 @@ export type Props = {
   isLoadingBalance: boolean;
   isTransferring: boolean;
   transferError: string | null;
+  transferSuccess: boolean;
   onTransfer: (to: string, amount: string) => void;
 };
 
-export type MapStateProps = Pick<Props, "isConnected" | "balance" | "isLoadingBalance" | "isTransferring" | "transferError">;
+export type MapStateProps = Pick<Props, "isConnected" | "balance" | "isLoadingBalance" | "isTransferring" | "transferError" | "transferSuccess">;
 export type MapDispatchProps = Pick<Props, "onTransfer">;
 export type MapDispatch = Dispatch<TransferTokenRequestAction | UnknownAction>;

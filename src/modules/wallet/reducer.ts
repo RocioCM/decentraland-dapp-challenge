@@ -15,6 +15,7 @@ import {
   TRANSFER_TOKEN_REQUEST,
   TRANSFER_TOKEN_SUCCESS,
   TRANSFER_TOKEN_FAILURE,
+  TRANSFER_TOKEN_RESET,
   MINT_TOKEN_REQUEST,
   MINT_TOKEN_SUCCESS,
   MINT_TOKEN_FAILURE,
@@ -29,6 +30,7 @@ const INITIAL_STATE: WalletState = {
   isLoadingBalance: false,
   isTransferring: false,
   transferError: null,
+  transferSuccess: false,
   isMinting: false,
   mintError: null,
 };
@@ -93,6 +95,7 @@ export function walletReducer(state: WalletState = INITIAL_STATE, action: AnyAct
         ...state,
         isTransferring: true,
         transferError: null,
+        transferSuccess: false,
       };
     }
 
@@ -101,6 +104,7 @@ export function walletReducer(state: WalletState = INITIAL_STATE, action: AnyAct
         ...state,
         isTransferring: false,
         transferError: null,
+        transferSuccess: true,
       };
     }
 
@@ -110,6 +114,15 @@ export function walletReducer(state: WalletState = INITIAL_STATE, action: AnyAct
         ...state,
         isTransferring: false,
         transferError: error,
+        transferSuccess: false,
+      };
+    }
+
+    case TRANSFER_TOKEN_RESET: {
+      return {
+        ...state,
+        transferError: null,
+        transferSuccess: false,
       };
     }
 

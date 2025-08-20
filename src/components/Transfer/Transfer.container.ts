@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { transferTokenRequest } from "../../modules/wallet/actions";
-import { isConnected, getBalance, isLoadingBalance, isTransferring, getTransferError } from "../../modules/wallet/selectors";
+import { isConnected, getBalance, isLoadingBalance, isTransferring, getTransferError, getTransferSuccess } from "../../modules/wallet/selectors";
 import { RootState } from "../../modules/types";
 import { MapDispatch, MapDispatchProps, MapStateProps } from "./Transfer.types";
 import Transfer from "./Transfer";
@@ -11,6 +11,7 @@ const mapState = (state: RootState): MapStateProps => ({
   isLoadingBalance: isLoadingBalance(state),
   isTransferring: isTransferring(state),
   transferError: getTransferError(state),
+  transferSuccess: getTransferSuccess(state),
 });
 
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({

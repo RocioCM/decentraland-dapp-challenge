@@ -9,5 +9,6 @@ export const getBalance = (state: RootState) => getState(state).balance || "0";
 export const isLoadingBalance = (state: RootState) => getState(state).isLoadingBalance;
 export const isTransferring = (state: RootState) => getState(state).isTransferring;
 export const getTransferError = (state: RootState) => getState(state).transferError;
+export const getTransferSuccess = (state: RootState) => getState(state).transferSuccess;
 export const isMinting = (state: RootState) => getState(state).isMinting;
 export const getMintError = (state: RootState) => getState(state).mintError;

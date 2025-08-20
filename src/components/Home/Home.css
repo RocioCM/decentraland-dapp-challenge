@@ -1,7 +1,6 @@
 .Home {
-  max-width: 500px;
   color: white;
-  margin-left: 6rem;
+  margin: 0 6rem;
   align-items: flex-start;
   gap: 0.7rem;
 }
@@ -26,6 +25,41 @@
   text-align: left;
   font-size: 14px;
   width: 100%;
+}
+
+.Image {
+  border-radius: 500px;
+  box-shadow: 0 0 30px 5px #a524b3e0;
+  animation: shadowPulse 5s infinite;
+  margin: 0 auto;
+}
+
+@keyframes shadowPulse {
+  0% {
+    box-shadow: 0 0 20px 5px #a524b375;
+  }
+  50% {
+    box-shadow: 0 0 60px 5px #a524b3e0;
+  }
+  100% {
+    box-shadow: 0 0 20px 5px #a524b375;
+  }
+}
+
+.WalletContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #909090;
+  background-color: #00000031;
+  box-shadow: 0 0 20px 5px #a524b339;
+
+  backdrop-filter: blur(10px);
+  width: max-content;
+  height: max-content;
+  margin: auto;
+  padding: 2.5rem;
+  border-radius: 0.8rem;
 }
 
 @media screen and (max-width: 768px) {
