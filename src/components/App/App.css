@@ -3,6 +3,7 @@
   --text: white;
   --luisxvi-violet: #a524b3;
   --primary: #ff2d55;
+  --error: #ff6b6b;
 
   min-height: 100vh;
   display: flex;

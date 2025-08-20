@@ -27,8 +27,8 @@ const Home: React.FC<Props> = ({
 
   if (!isConnected)
     return (
-      <Center className="Home">
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+      <Center>
+        <div className="Home" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
           <div style={{ maxWidth: "500px" }}>
             <h2 className="Title">Welcome to Dummy Token Manager</h2>
             <p className="Subtitle">
@@ -40,30 +40,32 @@ const Home: React.FC<Props> = ({
                 Connect Wallet
               </Button>
             </div>
-            {error ? <p className="Error">{error}</p> : null}
+            {error ? <p className="Error">An error occurred while connecting your wallet. Please try again.</p> : null}
           </div>
-          <img className="Image" src="/decentraland.png" alt="Dummy Token" style={{ maxWidth: "300px", width: "100%", height: "auto" }} />
+          <img className="Image" src="/decentraland.png" alt="Dummy Token" />
         </div>
       </Center>
     );
 
   return (
-    <Center className="WalletContainer animate__animated animate__fadeInLeft">
-      <div className="Card">
-        <p style={{ fontSize: "1.2rem", marginBottom: "1.5rem", display: "flex", gap: "0.5rem" }}>
+    <Center>
+      <div className="WalletContainer animate__animated animate__fadeInLeft">
+        <p className="WalletAddress">
           <strong>Connected Wallet: </strong>
-          {address.slice(0, 6) + "..." + address.slice(-4)}
-          <Icon
-            name={copied ? "check" : "copy outline"}
-            color={copied ? "green" : undefined}
-            onClick={() => {
-              navigator.clipboard.writeText(address);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            }}
-          />
+          <span style={{ fontSize: "1.2rem", marginBottom: "1.5rem", display: "flex", gap: "0.5rem" }}>
+            <span>{address.slice(0, 6) + "..." + address.slice(-4)}</span>
+            <Icon
+              name={copied ? "check" : "copy outline"}
+              color={copied ? "green" : undefined}
+              onClick={() => {
+                navigator.clipboard.writeText(address);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+            />
+          </span>
         </p>
-        {/* Balance Card */}
+
         <Header>Token Balance</Header>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
           <div>
@@ -80,18 +82,8 @@ const Home: React.FC<Props> = ({
           </Button>
         </div>
 
-        {/* Actions Card */}
         <Header>Actions</Header>
-        <div
-          style={{
-            display: "flex",
-            width: "500px",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "1rem",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className="ActionsContainer">
           <Button fluid inverted onClick={onMint} loading={isMinting}>
             <Icon name="plus" /> Mint Dummy Tokens
           </Button>
@@ -100,7 +92,7 @@ const Home: React.FC<Props> = ({
           </Button>
         </div>
 
-        {mintError && <p className="Error">{mintError}</p>}
+        {mintError && <p className="Error">An error occurred while minting your tokens. Please try again.</p>}
       </div>
     </Center>
   );

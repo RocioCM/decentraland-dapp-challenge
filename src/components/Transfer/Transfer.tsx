@@ -46,12 +46,12 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
       setTransferTo("");
       setTransferAmount("");
 
-      // Hide success message after 1.5 seconds
+      // Hide success message after some seconds
       const hideMessageTimer = setTimeout(() => {
         setShowSuccessToast(false);
       }, 3000);
 
-      // Redirect to home after 2 seconds
+      // Redirect to home after some seconds
       const redirectTimer = setTimeout(() => {
         navigate("/");
       }, 3200);
@@ -156,7 +156,7 @@ const Transfer: React.FC<Props> = ({ isConnected, balance, isTransferring, trans
 
           {transferError && (
             <p className="error" style={{ color: "var(--primary)", textAlign: "center", margin: "10px 0 0 0" }}>
-              An error occurred. The transfer was unsuccessful.
+              An error occurred and the transfer was unsuccessful. Try again later.
             </p>
           )}
         </div>

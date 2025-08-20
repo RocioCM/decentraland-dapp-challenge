@@ -1,8 +1,8 @@
 .Home {
-  color: white;
-  margin: 0 6rem;
+  color: var(--text);
+  padding: 0 6rem;
   align-items: flex-start;
-  gap: 0.7rem;
+  gap: 2rem;
 }
 
 .Title {
@@ -19,8 +19,8 @@
   width: 100%;
 }
 
-.Home .Error {
-  color: #ff6b6b;
+.Error {
+  color: var(--error);
   margin: 10px 0;
   text-align: left;
   font-size: 14px;
@@ -32,6 +32,9 @@
   box-shadow: 0 0 30px 5px #a524b3e0;
   animation: shadowPulse 5s infinite;
   margin: 0 auto;
+  max-width: 300px;
+  width: 100%;
+  height: auto;
 }
 
 @keyframes shadowPulse {
@@ -48,8 +51,8 @@
 
 .WalletContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
   border: 2px solid #909090;
   background-color: #00000031;
   box-shadow: 0 0 20px 5px #a524b339;
@@ -62,27 +65,70 @@
   border-radius: 0.8rem;
 }
 
+.ActionsContainer {
+  display: flex;
+  width: 500px;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.WalletAddress {
+  display: flex;
+  gap: 0.5rem;
+}
+
 @media screen and (max-width: 768px) {
   .Home {
     margin: 0;
     padding: 1rem 2rem;
+    gap: 5rem;
     text-align: center;
-    gap: 1.5rem;
+    flex-direction: column-reverse;
   }
 
-  .Title {
-    font-size: 2.5rem;
+  .Home .Title {
+    font-size: 2rem;
   }
 
-  .Subtitle {
+  .Home .Subtitle {
     font-size: 1.2rem;
+    max-width: 80%;
+    margin: 2rem auto;
+  }
+
+  .Home .Subtitle br {
+    display: none;
   }
 
   .ButtonContainer {
     width: 100%;
   }
 
-  .Home .error {
-    font-size: 12px;
+  .Image {
+    max-width: 200px;
+  }
+
+  .Home .Error,
+  .WalletContainer .Error {
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .WalletContainer {
+    width: 90vw;
+    overflow: auto;
+    align-items: center;
+  }
+
+  .WalletContainer .ActionsContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .WalletContainer .WalletAddress {
+    flex-direction: column;
+    align-items: center;
   }
 }
